@@ -5,4 +5,4 @@ extends Node2D
 
 func _on_launch_button_button_down():
 	animation_player.play("Launch")
-	# launch_button.hide()
+	#launch_button.hide()
