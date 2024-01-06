@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs5buue34rxyg"]
+
+[ext_resource type="Script" path="res://World.gd" id="1_qcruo"]
+[ext_resource type="Texture2D" uid="uid://suolddqlca5g" path="res://Rocket Launch Resources/RocketShip.png" id="1_qvkou"]
+[ext_resource type="Texture2D" uid="uid://cebi8wrg6eb0q" path="res://Rocket Launch Resources/LaunchButton.png" id="3_q5uk7"]
+
+[sub_resource type="Animation" id="Animation_xvxlr"]
+resource_name = "Launch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RocketShip:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(640, 620), Vector2(640, -112)]
+}
+
+[sub_resource type="Animation" id="Animation_nv6nl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RocketShip:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 620)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2sx4s"]
+_data = {
+"Launch": SubResource("Animation_xvxlr"),
+"RESET": SubResource("Animation_nv6nl")
+}
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_qcruo")
+
+[node name="RocketShip" type="Sprite2D" parent="."]
+position = Vector2(640, 620)
+scale = Vector2(2, 2)
+texture = ExtResource("1_qvkou")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2sx4s")
+}
+
+[node name="LaunchButton" type="TextureButton" parent="."]
+offset_left = 1166.0
+offset_top = 672.0
+offset_right = 1214.0
+offset_bottom = 688.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_q5uk7")
+
+[connection signal="button_down" from="LaunchButton" to="." method="_on_launch_button_button_down"]
